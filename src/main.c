@@ -6,7 +6,8 @@
 #include <string.h>
 #include "../include/netlink.h"
 #include "../include/link.h"
-
+#include "../include/addr.h"
+    
 
 
 int main() {
@@ -47,40 +48,44 @@ int main() {
     printf("Link list request sent successfully.\n");
 */
 
-    print_link_info_helper(sock_fd);
- 
+
 /*
-    // 4. Receive and parse multipart responses in a loop
-    int done = 0;
-    while (!done) {
-        char my_buffer[BUFFER_SIZE];
-        ssize_t bytes_received = netlink_receive_helper(sock_fd, my_buffer, sizeof(my_buffer));
-
-        if (bytes_received <= 0) {
-            break; // Error or socket closed
+// 4. Receive and parse multipart responses in a loop
+int done = 0;
+while (!done) {
+    char my_buffer[BUFFER_SIZE];
+    ssize_t bytes_received = netlink_receive_helper(sock_fd, my_buffer, sizeof(my_buffer));
+    
+    if (bytes_received <= 0) {
+        break; // Error or socket closed
         }
-
+        
         struct nlmsghdr *nlh = (struct nlmsghdr *)my_buffer;
-
+        
         while (NLMSG_OK(nlh, bytes_received)) {
             if (nlh->nlmsg_type == NLMSG_DONE) {
                 done = 1;
                 break;
-            }
-            if (nlh->nlmsg_type == NLMSG_ERROR) {
-                done = 1;
-                break;
-            }
+                }
+                if (nlh->nlmsg_type == NLMSG_ERROR) {
+                    done = 1;
+                    break;
+                    }
 
             // Process payload data here (e.g. NLMSG_DATA(nlh))
             printf("Received message type: %d, length: %d\n", nlh->nlmsg_type, nlh->nlmsg_len);
-
+            
             nlh = NLMSG_NEXT(nlh, bytes_received);
-        }
-    }
+            }
+            }
+            
+            */
 
-*/
-    print_link_info(sock_fd);
+    send_req_link_info_helper(sock_fd);
+    recieve_link_info(sock_fd);
+
+    send_req_addr_info_helper(sock_fd);
+    recieve_addr_info_helper(sock_fd);
 
     
     

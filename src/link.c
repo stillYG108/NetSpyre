@@ -29,7 +29,7 @@ void format_bytes(uint64_t bytes, char *out, size_t out_len) {
 /*
     This function is used to send a request to the kernel to get the link 
 */
-void print_link_info_helper(int sock_fd) {
+void send_req_link_info_helper(int sock_fd) {
     struct ifinfomsg if_hdr;
     memset(&if_hdr, 0, sizeof(if_hdr)); // Zero out garbage memory
     if_hdr.ifi_family = AF_UNSPEC;      // AF_PACKET/AF_UNSPEC gets all link interfaces
@@ -38,14 +38,13 @@ void print_link_info_helper(int sock_fd) {
         fprintf(stderr, "Failed to send link request\n");
         close(sock_fd);
         exit(EXIT_FAILURE);
-    }
-    printf("Link list request sent successfully.\n");   
+    }   
 }
     
 /*
     This function is used to recieve a link from the kernel 
 */
-void print_link_info(int sock_fd) {
+void recieve_link_info(int sock_fd) {
     int done = 0;
     while (!done) {
         char my_buffer[BUFFER_SIZE];
@@ -68,7 +67,7 @@ void print_link_info(int sock_fd) {
             }
 
             if (nlh->nlmsg_type == RTM_NEWLINK) {
-                parse_link_info_helper(nlh);
+                print_link_info_helper(nlh);
             }
 
             nlh = NLMSG_NEXT(nlh, bytes_received);
@@ -76,7 +75,7 @@ void print_link_info(int sock_fd) {
     }
 }
 
-void parse_link_info_helper(struct nlmsghdr *nlh) {
+void print_link_info_helper(struct nlmsghdr *nlh) {
     // 1. Get pointer to the ifinfomsg header
     struct ifinfomsg *ifm = (struct ifinfomsg *)NLMSG_DATA(nlh);
 

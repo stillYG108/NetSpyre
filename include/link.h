@@ -6,20 +6,20 @@
  * 
  * @param sock_fd The open Netlink socket descriptor.
  */
-void print_link_info_helper(int sock_fd);
+void send_req_link_info_helper(int sock_fd);
 
 /**
  * Receives the link information from the kernel and prints it
  * 
  * @param sock_fd The open Netlink socket descriptor.
 */
-void print_link_info(int sock_fd);
+void recieve_link_info(int sock_fd);
 
 /**
  * Parse the recieved link information from the kernel
  *
  * @param nlh The Netlink message header to parse
 */
-void parse_link_info_helper(struct nlmsghdr *nlh);
+void print_link_info_helper(struct nlmsghdr *nlh);
 
 #endif // LINK_H
