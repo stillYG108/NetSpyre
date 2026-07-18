@@ -68,8 +68,3 @@ sudo ./netspyre neigh
 - Current CLI commands are strict and positional: one command argument is required.
 - This project is focused on inspection/query behavior (not configuration changes).
 - Spelling in some function names (for example `recieve_*`) follows current source as-is.
-
-## License
-
-No license file is currently present in this repository.
-If you plan to publish or reuse this code, consider adding a `LICENSE` file.
