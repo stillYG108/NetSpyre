@@ -7,7 +7,8 @@
 #include "../include/netlink.h"
 #include "../include/link.h"
 #include "../include/addr.h"
-    
+#include "../include/route.h"
+#include "../include/route.h"
 
 
 int main() {
@@ -87,7 +88,8 @@ while (!done) {
     send_req_addr_info_helper(sock_fd);
     recieve_addr_info_helper(sock_fd);
 
-    
+    send_req_route_info_helper(sock_fd);
+    recieve_route_info_helper(sock_fd);
     
     close(sock_fd);
     return 0;
