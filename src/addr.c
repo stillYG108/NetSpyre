@@ -8,8 +8,6 @@
 #include "../include/netlink.h"
 #include <net/if.h>
 #include "../include/addr.h"
-#include "../include/utils.h"
-#include "../include/link.h"
 #include <arpa/inet.h>
 
 void send_req_addr_info_helper(int sock_fd){

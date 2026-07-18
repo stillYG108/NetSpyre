@@ -88,16 +88,14 @@ void print_route_info_helper(struct nlmsghdr *nlh){
     }
 
     if (rtm->rtm_dst_len == 0) {
-        printf("[Route] Destination: default\n");
+        printf("\033[1;33m[Route] Destination: default\033[0m\n");
     } else {
-        printf("[Route] Destination: %s/%d\n", dest, rtm->rtm_dst_len);
+        printf("\033[1;33m[Route] Destination: %s/%d\033[0m\n", dest, rtm->rtm_dst_len);
     }
 
     printf("    Family:     %s\n", (rtm->rtm_family == AF_INET) ? "IPv4 (INET)" : "IPv6 (INET6)");
     printf("    Gateway:    %s\n", (strcmp(gateway, "none") == 0) ? "None" : gateway);
     printf("    Interface:  %s\n", ifname);
     printf("    Source IP:  %s\n", (strcmp(preferred_src, "none") == 0) ? "None" : preferred_src);
-    printf("-----------------------------------------------------\n");
-
-
+    printf("\033[1;30m-----------------------------------------------------\033[0m\n");
 }
